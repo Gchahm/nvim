@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>h", vim.cmd.Ex, { desc = "Open File Explorer" })
-vim.keymap.set("n", "<leader>pv", "[[:w | Ex | <cr>]]", { desc = "Save and Open File Explorer" })
+vim.keymap.set("n", "<C-h>", vim.cmd.Ex, { desc = "Open File Explorer" })
+vim.keymap.set("n", "<C-l>", "[[:w | Ex | <cr>]]", { desc = "Save and Open File Explorer" })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected text down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected text up" })
