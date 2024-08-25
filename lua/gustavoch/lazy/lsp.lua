@@ -5,6 +5,8 @@ return {
     { 'hrsh7th/nvim-cmp' },
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
+    { 'jayp0521/mason-null-ls.nvim' },
+    { 'jose-elias-alvarez/null-ls.nvim' },
     -- snippets templates
     { "rafamadriz/friendly-snippets" },
     -- snippets server

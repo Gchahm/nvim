@@ -50,3 +50,9 @@ require('mason-lspconfig').setup({
         end,
     },
 })
+
+-- If you use mason-null-ls for linters/formatters
+require("mason-null-ls").setup({
+    ensure_installed = { "prettier" }, -- Install Prettier using Mason
+    automatic_installation = true,
+})
