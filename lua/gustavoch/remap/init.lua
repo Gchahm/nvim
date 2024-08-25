@@ -43,13 +43,6 @@ vim.keymap.set("n", "<leader>sW", [[:%s/\<<C-r><C-W>\>/<C-r><C-W>/gI<Left><Left>
 
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc = "Make current file executable", silent = true })
 
-vim.keymap.set(
-    "n",
-    "<leader>ee",
-    "oif err != nil {<CR>}<Esc>Oreturn err<Esc>",
-    { desc = "Insert error handling template" }
-)
-
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end, { desc = "source current file" })
