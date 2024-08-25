@@ -18,7 +18,7 @@ cmp.setup({
         ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
 
         -- `Enter` key to confirm completion
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
 
         -- Ctrl+Space to trigger completion menu
         ['<C-Space>'] = cmp.mapping.complete(),

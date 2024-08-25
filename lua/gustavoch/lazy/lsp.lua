@@ -5,7 +5,9 @@ return {
     { 'hrsh7th/nvim-cmp' },
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
+    -- snippets templates
     { "rafamadriz/friendly-snippets" },
+    -- snippets server
     {
         "L3MON4D3/LuaSnip",
         -- follow latest release.
@@ -14,6 +16,8 @@ return {
         build = "make install_jsregexp",
         dependencies = { "rafamadriz/friendly-snippets" },
     },
+    -- snippets server for cmp
     { 'saadparwaiz1/cmp_luasnip' },
+    -- make suggestions pretty
     { 'onsails/lspkind.nvim' },
 }

@@ -29,8 +29,23 @@ local lsp_attach = function(client, bufnr)
     lsp_zero.buffer_autoformat()
 end
 
+
+local lsp_capabilities = vim.tbl_deep_extend(
+    'force',
+    require('cmp_nvim_lsp').default_capabilities(),
+    {
+        textDocument = {
+            foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true
+            },
+        }
+    }
+)
+
+
 lsp_zero.extend_lspconfig({
     sign_text = true,
     lsp_attach = lsp_attach,
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+    capabilities = lsp_capabilities,
 })
