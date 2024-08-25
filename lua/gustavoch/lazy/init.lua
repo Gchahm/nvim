@@ -1,5 +1,4 @@
 return {
-	{ "vhyrro/luarocks.nvim" },
+    { "vhyrro/luarocks.nvim" },
     { "nvim-lua/plenary.nvim" },
-    { "eandrju/cellular-automaton.nvim" },
 }
