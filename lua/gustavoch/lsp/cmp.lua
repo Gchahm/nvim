@@ -1,15 +1,21 @@
 local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
+local cmp_format = require('lsp-zero').cmp_format({ details = true })
+
+require('luasnip.loaders.from_vscode').lazy_load()
 
 cmp.setup({
     sources = {
         { name = 'nvim_lsp' },
-        { name = 'buffer' },
+        { name = 'luasnip' },
     },
     mapping = cmp.mapping.preset.insert({
         -- Navigate between completion items
         ['<C-n>'] = cmp.mapping.select_next_item({ behavior = 'select' }),
         ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = 'select' }),
+
+        ['<Tab>'] = cmp_action.luasnip_supertab(),
+        ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
 
         -- `Enter` key to confirm completion
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
@@ -27,7 +33,8 @@ cmp.setup({
     }),
     snippet = {
         expand = function(args)
-            vim.snippet.expand(args.body)
+            require('luasnip').lsp_expand(args.body)
         end,
     },
+    formatting = cmp_format,
 })
