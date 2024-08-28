@@ -5,12 +5,19 @@ return {
 
     dependencies = {
         "nvim-lua/plenary.nvim",
+        "folke/which-key.nvim",
         "BurntSushi/ripgrep"
     },
 
     config = function()
         require('telescope').setup({})
         local builtin = require('telescope.builtin')
+
+
+        local wk = require("which-key")
+        wk.add({
+            { "<leader>p", group = "project" }, -- group
+        })
 
         -- Find files in the current project using Telescope's built-in `find_files`
         vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "Find files" })
@@ -22,13 +29,13 @@ return {
 
         -- Search for the word under the cursor in the current project using `grep_string`
         vim.keymap.set('n', '<leader>psw', function()
-            local word = vim.fn.expand("<cword>")  -- Get the word under the cursor
+            local word = vim.fn.expand("<cword>") -- Get the word under the cursor
             builtin.grep_string({ search = word })
         end, { desc = "Search word under cursor" })
 
         -- Search for the WORD (sequence of non-whitespace characters) under the cursor
         vim.keymap.set('n', '<leader>psW', function()
-            local word = vim.fn.expand("<cWORD>")  -- Get the WORD under the cursor
+            local word = vim.fn.expand("<cWORD>") -- Get the WORD under the cursor
             builtin.grep_string({ search = word })
         end, { desc = "Search WORD under cursor" })
 
@@ -39,7 +46,5 @@ return {
 
         -- Open help tags using Telescope to browse Neovim help documentation
         vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "Help tags" })
-
-   end
+    end
 }
-

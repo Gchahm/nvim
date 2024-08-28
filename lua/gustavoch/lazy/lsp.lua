@@ -11,6 +11,7 @@ return {
     { 'jose-elias-alvarez/null-ls.nvim' },
     -- snippets templates
     { "rafamadriz/friendly-snippets" },
+    { "jose-elias-alvarez/null-ls.nvim" },
     -- snippets server
     {
         "L3MON4D3/LuaSnip",

@@ -11,12 +11,5 @@ return {
             end,
             desc = "Buffer Local Keymaps (which-key)",
         },
-        {
-            "<leader>p",
-            function()
-                require("which-key").show({ global = false })
-            end,
-            desc = "Project related",
-        },
     },
 }

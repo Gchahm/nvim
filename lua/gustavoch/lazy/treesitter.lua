@@ -7,7 +7,7 @@ return {
             ensure_installed = { "c", "cpp", "javascript", "typescript", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
 
             -- install parsers synchronously (only applied to `ensure_installed`)
-            sync_install = false,
+            sync_install = true,
 
             -- automatically install missing parsers when entering buffer
             -- recommendation: set to false if you don"t have `tree-sitter` cli installed locally
