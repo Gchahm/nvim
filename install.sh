@@ -31,11 +31,13 @@ print_error() {
 
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SOURCE_DIR="$SCRIPT_DIR/nvim"
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
 BACKUP_DIR="$HOME/.config/nvim.backup.$(date +%Y%m%d_%H%M%S)"
 
 print_info "Starting nvim configuration installation..."
 print_info "Script directory: $SCRIPT_DIR"
+print_info "Source directory: $SOURCE_DIR"
 print_info "Target directory: $NVIM_CONFIG_DIR"
 
 # Check if nvim is installed
@@ -65,25 +67,21 @@ fi
 # Create .config directory if it doesn't exist
 mkdir -p "$HOME/.config"
 
+# Verify source directory exists
+if [ ! -d "$SOURCE_DIR" ]; then
+    print_error "Source directory not found: $SOURCE_DIR"
+    print_info "Make sure you're running this script from the repository root."
+    exit 1
+fi
+
 # Copy nvim configuration files
 print_info "Copying nvim configuration files..."
 
 # Create the nvim config directory
 mkdir -p "$NVIM_CONFIG_DIR"
 
-# Copy all nvim-related files (excluding git, terminal themes, and scripts)
-cp "$SCRIPT_DIR/init.lua" "$NVIM_CONFIG_DIR/"
-cp "$SCRIPT_DIR/lazy-lock.json" "$NVIM_CONFIG_DIR/"
-cp "$SCRIPT_DIR/luarc.json" "$NVIM_CONFIG_DIR/"
-
-# Copy directories
-if [ -d "$SCRIPT_DIR/lua" ]; then
-    cp -r "$SCRIPT_DIR/lua" "$NVIM_CONFIG_DIR/"
-fi
-
-if [ -d "$SCRIPT_DIR/after" ]; then
-    cp -r "$SCRIPT_DIR/after" "$NVIM_CONFIG_DIR/"
-fi
+# Copy all files from the nvim source directory (this is much cleaner!)
+cp -r "$SOURCE_DIR"/* "$NVIM_CONFIG_DIR/"
 
 print_success "Nvim configuration files copied successfully."
 
@@ -92,9 +90,10 @@ BASHRC_SOURCE_LINE="source ~/.config/nvim/.bashrc"
 CUSTOM_BASHRC="$NVIM_CONFIG_DIR/.bashrc"
 
 # Copy the custom bashrc to nvim config
-if [ -f "$SCRIPT_DIR/.bashrc" ]; then
+if [ -f "$SOURCE_DIR/.bashrc" ]; then
     print_info "Setting up custom bashrc..."
-    cp "$SCRIPT_DIR/.bashrc" "$CUSTOM_BASHRC"
+    # The bashrc is already copied with the rest of the config
+    CUSTOM_BASHRC="$NVIM_CONFIG_DIR/.bashrc"
     
     # Check if already sourced in ~/.profile
     if [ -f "$HOME/.profile" ] && grep -q "$BASHRC_SOURCE_LINE" "$HOME/.profile"; then
@@ -125,10 +124,8 @@ if [ -f "$SCRIPT_DIR/.bashrc" ]; then
     fi
 fi
 
-# Copy terminal themes if they exist
-if [ -d "$SCRIPT_DIR/.terminal" ]; then
-    print_info "Copying terminal themes..."
-    cp -r "$SCRIPT_DIR/.terminal" "$NVIM_CONFIG_DIR/"
+# Terminal themes are already copied with the main config
+if [ -d "$NVIM_CONFIG_DIR/.terminal" ]; then
     print_success "Terminal themes copied."
 fi
 

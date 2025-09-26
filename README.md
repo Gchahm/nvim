@@ -121,14 +121,19 @@ node --version  # Should show a version number
 .
 ├── install.sh              # Installation script
 ├── uninstall.sh            # Uninstallation script
-├── init.lua                # Main nvim configuration
-├── lazy-lock.json          # Plugin version lock file
-├── luarc.json             # Lua language server config
-├── .bashrc                # Custom bash configuration
-├── .terminal/             # Terminal themes and configs
-│   └── posh_themes/       # PowerShell themes
-├── lua/                   # Lua configuration modules
-│   └── gustavoch/         # Main configuration namespace
-└── after/                 # After-load configurations
-    └── ftplugin/          # Filetype-specific plugins
+├── README.md              # This documentation
+├── .gitignore             # Git ignore rules
+└── nvim/                  # Nvim configuration source
+    ├── init.lua           # Main nvim configuration
+    ├── lazy-lock.json     # Plugin version lock file
+    ├── luarc.json         # Lua language server config
+    ├── .bashrc            # Custom bash configuration
+    ├── .terminal/         # Terminal themes and configs
+    │   └── posh_themes/   # PowerShell themes
+    ├── lua/               # Lua configuration modules
+    │   └── gustavoch/     # Main configuration namespace
+    └── after/             # After-load configurations
+        └── ftplugin/      # Filetype-specific plugins
 ```
+
+The `nvim/` directory contains all the configuration files that will be copied to `~/.config/nvim/` during installation.
