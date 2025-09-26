@@ -86,6 +86,14 @@ mkdir -p "$NVIM_CONFIG_DIR"
 
 print_success "Nvim configuration files copied successfully."
 
+# Fix line endings for text files (convert Windows CRLF to Unix LF)
+print_info "Fixing line endings for configuration files..."
+find "$NVIM_CONFIG_DIR" -name "*.sh" -o -name ".bashrc" -o -name "*.bash" -o -name "*.vim" -o -name "*.lua" -o -name "*.json" | while read -r file; do
+    if [ -f "$file" ]; then
+        sed -i 's/\r$//' "$file" 2>/dev/null || true
+    fi
+done
+
 # Handle bashrc integration
 BASHRC_SOURCE_LINE="source ~/.config/nvim/.bashrc"
 CUSTOM_BASHRC="$NVIM_CONFIG_DIR/.bashrc"
