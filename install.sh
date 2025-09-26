@@ -80,8 +80,9 @@ print_info "Copying nvim configuration files..."
 # Create the nvim config directory
 mkdir -p "$NVIM_CONFIG_DIR"
 
-# Copy all files from the nvim source directory (this is much cleaner!)
-cp -r "$SOURCE_DIR"/* "$NVIM_CONFIG_DIR/"
+# Copy all files from the nvim source directory, including hidden files
+# Use tar to preserve directory structure and include hidden files
+(cd "$SOURCE_DIR" && tar -cf - .) | (cd "$NVIM_CONFIG_DIR" && tar -xf -)
 
 print_success "Nvim configuration files copied successfully."
 
