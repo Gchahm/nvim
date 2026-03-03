@@ -1,139 +1,75 @@
 # Neovim Configuration
 
-A complete Neovim configuration with custom bashrc, terminal themes, and plugin management using Lazy.nvim.
+A complete Neovim configuration with Lazy.nvim plugin management, LSP, treesitter, and more.
 
-## Features
+## Quick Start
 
-- 🚀 Modern Neovim setup with Lazy.nvim plugin manager
-- 🎨 Custom terminal themes and configurations
-- 🔧 Custom bashrc with development tools integration
-- 📦 Pre-configured LSP, treesitter, and other essential plugins
-- 🔄 Easy installation and uninstallation scripts
-
-## Installation
-
-### Quick Install
-
-1. Clone this repository anywhere on your system:
 ```bash
 git clone <your-repo-url> ~/nvim-config
 cd ~/nvim-config
+
+# Install dependencies (Neovim 0.11+, ripgrep, lua, etc.)
+./scripts/install-dependencies.sh
+
+# Symlink the config to ~/.config/nvim
+./scripts/add-symlink.sh
+
+# Start Neovim and let Lazy.nvim install plugins
+nvim
 ```
 
-2. Run the installation script:
-```bash
-chmod +x install.sh
-./install.sh
-```
+## Scripts
 
-3. Follow the interactive prompts to complete the setup.
+All scripts live in `scripts/` and support both macOS (Homebrew) and Linux (apt).
 
-### What the installer does:
-
-- ✅ Backs up your existing nvim configuration (if any)
-- ✅ Copies all nvim configuration files to `~/.config/nvim`
-- ✅ Sets up custom bashrc integration
-- ✅ Copies terminal themes and configurations
-- ✅ Checks for Node.js and provides setup instructions
-- ✅ Provides clear next steps
-
-### Post-Installation
-
-1. **Restart your terminal** or run:
-   ```bash
-   source ~/.profile
-   ```
-
-2. **Install Node.js** (required for some plugins):
-   ```bash
-   nvm install 20
-   nvm use 20
-   ```
-   
-   If you don't have nvm installed:
-   ```bash
-   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-   ```
-
-3. **Start Neovim** and let Lazy.nvim install all plugins:
-   ```bash
-   nvim
-   ```
-
-## Uninstallation
-
-To remove the configuration and revert changes:
-
-```bash
-chmod +x uninstall.sh
-./uninstall.sh
-```
-
-The uninstaller will:
-- Remove the nvim configuration
-- Optionally restore from backups
-- Clean up bashrc integration
-- Provide cleanup guidance
-
-## Manual Installation (Legacy)
-
-If you prefer to install manually:
-
-1. Clone directly to nvim config directory:
-   ```bash
-   git clone <your-repo-url> ~/.config/nvim
-   ```
-
-2. Add bashrc integration:
-   ```bash
-   echo "source ~/.config/nvim/.bashrc" >> ~/.profile
-   ```
-
-3. Install Node.js and start nvim as described above.
+| Script | Purpose |
+|---|---|
+| `install-dependencies.sh` | Installs Neovim 0.11+ and all build dependencies |
+| `add-symlink.sh` | Links `~/.config/nvim` to this repo (backs up existing config) |
+| `remove-symlink.sh` | Removes the symlink and cleans up bashrc integration |
+| `install-ohmyposh.sh` | Optional: installs oh-my-posh with the honukai theme |
 
 ## Requirements
 
-- Neovim (>= 0.8.0)
+- Neovim >= 0.11 (installed by `install-dependencies.sh`)
 - Git
-- Node.js (for LSP and some plugins)
 - A terminal that supports true colors
+
+## Uninstallation
+
+```bash
+./scripts/remove-symlink.sh
+```
+
+This will remove the symlink, clean up bashrc integration, and optionally restore a backup.
 
 ## Troubleshooting
 
 ### Plugin Installation Issues
-If plugins fail to install, try:
 ```bash
 nvim --headless "+Lazy! sync" +qa
 ```
 
 ### Backup Recovery
-Your old configurations are automatically backed up to `~/.config/nvim.backup.TIMESTAMP`. You can restore them using the uninstall script or manually.
-
-### Node.js Issues
-Some plugins require Node.js. Ensure you have it installed and active:
-```bash
-node --version  # Should show a version number
-```
+Old configurations are backed up to `~/.config/nvim.backup.TIMESTAMP`. Restore them with `remove-symlink.sh` or manually.
 
 ## Project Structure
 
 ```
 .
-├── install.sh              # Installation script
-├── uninstall.sh            # Uninstallation script
-├── README.md              # This documentation
-├── .gitignore             # Git ignore rules
-└── nvim/                  # Nvim configuration source
-    ├── init.lua           # Main nvim configuration
-    ├── lazy-lock.json     # Plugin version lock file
-    ├── luarc.json         # Lua language server config
-    ├── .bashrc            # Custom bash configuration
-    ├── .terminal/         # Terminal themes and configs
-    │   └── posh_themes/   # PowerShell themes
-    ├── lua/               # Lua configuration modules
-    │   └── gustavoch/     # Main configuration namespace
-    └── after/             # After-load configurations
-        └── ftplugin/      # Filetype-specific plugins
+├── scripts/
+│   ├── install-dependencies.sh   # Install Neovim + dependencies
+│   ├── add-symlink.sh            # Symlink config into place
+│   ├── remove-symlink.sh         # Remove symlink and clean up
+│   └── install-ohmyposh.sh       # Optional oh-my-posh setup
+├── nvim/                          # Neovim configuration
+│   ├── init.lua                   # Entry point
+│   ├── lazy-lock.json             # Plugin version lock
+│   ├── .bashrc                    # Shell aliases and env vars
+│   ├── .terminal/                 # Terminal themes
+│   ├── lua/gustavoch/             # Configuration modules
+│   └── after/ftplugin/            # Filetype-specific settings
+└── README.md
 ```
 
-The `nvim/` directory contains all the configuration files that will be copied to `~/.config/nvim/` during installation.
+The `nvim/` directory is symlinked to `~/.config/nvim/`, so changes in the repo are immediately live.
