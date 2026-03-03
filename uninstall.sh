@@ -34,8 +34,8 @@ BASHRC_SOURCE_LINE="source ~/.config/nvim/.bashrc"
 
 print_info "Starting nvim configuration uninstall..."
 
-# Check if nvim config directory exists
-if [ ! -d "$NVIM_CONFIG_DIR" ]; then
+# Check if nvim config exists (symlink or directory)
+if [ ! -L "$NVIM_CONFIG_DIR" ] && [ ! -d "$NVIM_CONFIG_DIR" ]; then
     print_warning "No nvim configuration found at $NVIM_CONFIG_DIR"
     print_info "Nothing to uninstall."
     exit 0
@@ -89,7 +89,7 @@ if [ ${#BACKUP_DIRS[@]} -gt 0 ]; then
         
         if [ -n "$SELECTED_BACKUP" ]; then
             print_info "Removing current configuration..."
-            rm -rf "$NVIM_CONFIG_DIR"
+            rm -f "$NVIM_CONFIG_DIR" 2>/dev/null || rm -rf "$NVIM_CONFIG_DIR"
             print_info "Restoring backup from: $SELECTED_BACKUP"
             mv "$SELECTED_BACKUP" "$NVIM_CONFIG_DIR"
             print_success "Backup restored successfully!"
