@@ -1,6 +1,5 @@
 local cmp = require('cmp')
-local cmp_action = require('lsp-zero').cmp_action()
-local cmp_format = require('lsp-zero').cmp_format({ details = true })
+local luasnip = require('luasnip')
 
 require('luasnip.loaders.from_vscode').load()
 
@@ -12,30 +11,52 @@ cmp.setup({
         { name = 'buffer' },
     },
     mapping = cmp.mapping.preset.insert({
-        -- Navigate between completion items
         ['<C-n>'] = cmp.mapping.select_next_item({ behavior = 'select' }),
         ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = 'select' }),
 
-        ['<Tab>'] = cmp_action.luasnip_supertab(),
-        ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.confirm({ select = true })
+            elseif luasnip.locally_jumpable(1) then
+                luasnip.jump(1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
 
-        -- `Enter` key to confirm completion
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
-
-        -- Ctrl+Space to trigger completion menu
         ['<C-Space>'] = cmp.mapping.complete(),
 
-        -- Navigate between snippet placeholder
-        ['<C-f>'] = cmp_action.vim_snippet_jump_forward(),
-        ['<C-b>'] = cmp_action.vim_snippet_jump_backward(),
+        ['<C-f>'] = cmp.mapping(function(fallback)
+            if luasnip.locally_jumpable(1) then
+                luasnip.jump(1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
 
-        -- Scroll up and down in the completion documentation
+        ['<C-b>'] = cmp.mapping(function(fallback)
+            if luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+
         ['<C-u>'] = cmp.mapping.scroll_docs(-4),
         ['<C-d>'] = cmp.mapping.scroll_docs(4),
     }),
     snippet = {
         expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
         end,
     },
     window = {
@@ -45,9 +66,9 @@ cmp.setup({
     formatting = {
         fields = { 'abbr', 'kind', 'menu' },
         format = require('lspkind').cmp_format({
-            mode = 'symbol',       -- show only symbol annotations
-            maxwidth = 50,         -- prevent the popup from showing more than provided characters
-            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
+            mode = 'symbol',
+            maxwidth = 50,
+            ellipsis_char = '...',
         })
     },
 })

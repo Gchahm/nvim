@@ -1,5 +1,5 @@
-require("gustavoch.lsp.zero")
+require("gustavoch.lsp.config")
 require("gustavoch.lsp.mason")
 require("gustavoch.lsp.cmp")
-require("gustavoch.lsp.nullls")
+require("gustavoch.lsp.format")
 require("gustavoch.lsp.copilot")
