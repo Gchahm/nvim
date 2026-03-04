@@ -1,7 +1,8 @@
 return {
     "tpope/vim-fugitive",
-    config = function() 
-        vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+    config = function()
+        vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Git status" })
+        vim.keymap.set("n", "<leader>gc", function() vim.cmd.Git('commit') end, { desc = "Git commit" })
 
         local Gustavoch_Fugitive = vim.api.nvim_create_augroup("Gustavoch_Fugitive", {})
 

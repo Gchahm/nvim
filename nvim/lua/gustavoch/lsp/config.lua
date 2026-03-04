@@ -41,17 +41,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.tbl_extend('force', opts, { desc = 'Go to declaration' }))
         vim.keymap.set('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<cr>',
             vim.tbl_extend('force', opts, { desc = 'Go to implementation' }))
-        vim.keymap.set('n', '<leader>go', '<cmd>lua vim.lsp.buf.type_definition()<cr>',
+        vim.keymap.set('n', '<leader>gy', '<cmd>lua vim.lsp.buf.type_definition()<cr>',
             vim.tbl_extend('force', opts, { desc = 'Go to type definition' }))
-        vim.keymap.set('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<cr>',
-            vim.tbl_extend('force', opts, { desc = 'Show references' }))
-        vim.keymap.set('n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>',
-            vim.tbl_extend('force', opts, { desc = 'Show signature help' }))
+        vim.keymap.set('n', '<leader>gu', '<cmd>lua vim.lsp.buf.references()<cr>',
+            vim.tbl_extend('force', opts, { desc = 'Show usages/references' }))
         vim.keymap.set('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>',
             vim.tbl_extend('force', opts, { desc = 'Rename symbol' }))
         vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>',
             vim.tbl_extend('force', opts, { desc = 'Format code' }))
-        vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>',
-            vim.tbl_extend('force', opts, { desc = 'Show code actions' }))
+        vim.keymap.set('n', '<leader>am', '<cmd>lua vim.lsp.buf.code_action()<cr>',
+            vim.tbl_extend('force', opts, { desc = 'Code actions' }))
     end,
 })
