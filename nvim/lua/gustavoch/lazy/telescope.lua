@@ -64,9 +64,12 @@ return {
         -- Search everywhere (all builtins)
         vim.keymap.set('n', '<leader>as', builtin.builtin, { desc = "Search everywhere" })
 
-        -- Git
+        -- Git (Telescope)
         vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Find Git files" })
         vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = "Git branches" })
+        vim.keymap.set('n', '<leader>gl', builtin.git_commits, { desc = "Git log" })
+        vim.keymap.set('n', '<leader>gL', builtin.git_bcommits, { desc = "Git log (current file)" })
+        vim.keymap.set('n', '<leader>gS', builtin.git_stash, { desc = "Git stash" })
 
         -- Search for the word under the cursor
         vim.keymap.set('n', '<leader>psw', function()

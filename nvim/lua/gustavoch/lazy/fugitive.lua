@@ -3,6 +3,11 @@ return {
     config = function()
         vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Git status" })
         vim.keymap.set("n", "<leader>gc", function() vim.cmd.Git('commit') end, { desc = "Git commit" })
+        vim.keymap.set("n", "<leader>gp", function() vim.cmd.Git('push') end, { desc = "Git push" })
+        vim.keymap.set("n", "<leader>gP", function() vim.cmd.Git({ 'pull', '--rebase' }) end, { desc = "Git pull --rebase" })
+        vim.keymap.set("n", "<leader>gB", function() vim.cmd.Git('blame') end, { desc = "Git blame" })
+        vim.keymap.set("n", "<leader>gf", function() vim.cmd.Git('diff') end, { desc = "Git diff" })
+        vim.keymap.set("n", "<leader>gmm", function() vim.cmd.Git('merge main') end, { desc = "Git merge main" })
 
         local Gustavoch_Fugitive = vim.api.nvim_create_augroup("Gustavoch_Fugitive", {})
 
