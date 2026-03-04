@@ -6,7 +6,6 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         "folke/which-key.nvim",
-        "BurntSushi/ripgrep"
     },
 
     config = function()

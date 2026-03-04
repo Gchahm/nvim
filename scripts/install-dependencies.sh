@@ -151,11 +151,7 @@ echo
 check_neovim
 
 #         cmd       brew pkg      apt pkg
-install_pkg clang    llvm          clang
-install_pkg unzip    unzip         unzip
-install_pkg lua      lua           lua5.1
 install_pkg make     make          make
-install_pkg luarocks luarocks      luarocks
 install_pkg rg       ripgrep       ripgrep
 
 install_nvm
