@@ -36,12 +36,14 @@ vim.keymap.set("n", "<leader>wm", "<C-w>x", { desc = "Swap window" })
 vim.keymap.set("n", "<leader>zc", function() require("ufo").closeAllFolds() end, { desc = "Close all folds" })
 vim.keymap.set("n", "<leader>zo", function() require("ufo").openAllFolds() end, { desc = "Open all folds" })
 
--- Diagnostics navigation
+-- Diagnostics
 vim.keymap.set("n", "<leader>en", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 vim.keymap.set("n", "<leader>ep", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+vim.keymap.set("n", "<leader>ee", vim.diagnostic.open_float, { desc = "Show diagnostic" })
 
 -- Terminal
 vim.keymap.set("n", "<leader>nt", "<cmd>terminal<CR>", { desc = "Open terminal" })
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Move selected text
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected text down" })
@@ -96,3 +98,29 @@ vim.keymap.set("v", "<leader>(", "c()<esc>P", { desc = "Enclose in parentheses" 
 
 -- Clear search highlight
 vim.keymap.set("n", "<leader>nh", "<cmd>nohlsearch<CR>", { noremap = true, silent = true, desc = "Clear search highlight" })
+
+-- Save file
+vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file" })
+vim.keymap.set("i", "<C-s>", "<Esc><cmd>w<CR>", { desc = "Save file" })
+
+-- Close all other buffers
+vim.keymap.set("n", "<leader>wa", "<cmd>%bd|e#|bd#<CR>", { desc = "Close all other buffers" })
+
+-- Resize splits
+vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "Resize split up" })
+vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<CR>", { desc = "Resize split down" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Resize split left" })
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Resize split right" })
+
+-- Add blank line without entering insert mode
+vim.keymap.set("n", "<leader>o", "o<Esc>k", { desc = "Add blank line below" })
+vim.keymap.set("n", "<leader>O", "O<Esc>j", { desc = "Add blank line above" })
+
+-- Select all
+vim.keymap.set("n", "<leader>sa", "ggVG", { desc = "Select all" })
+
+-- Open Lazy plugin manager
+vim.keymap.set("n", "<leader>l", "<cmd>Lazy<CR>", { desc = "Open Lazy" })
+
+-- Previous buffer
+vim.keymap.set("n", "gp", "<cmd>b#<CR>", { desc = "Previous buffer" })
