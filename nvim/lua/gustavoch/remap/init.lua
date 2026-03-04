@@ -3,15 +3,15 @@ vim.g.mapleader = " "
 -- jk to escape insert mode
 vim.keymap.set("i", "jk", "<Esc>", { desc = "Exit insert mode" })
 
--- Pane navigation (Alt+hjkl)
-vim.keymap.set("n", "<A-h>", "<C-w>h", { desc = "Navigate to left pane" })
-vim.keymap.set("n", "<A-l>", "<C-w>l", { desc = "Navigate to right pane" })
-vim.keymap.set("n", "<A-k>", "<C-w>k", { desc = "Navigate to upper pane" })
-vim.keymap.set("n", "<A-j>", "<C-w>j", { desc = "Navigate to lower pane" })
+-- Pane navigation
+vim.keymap.set("n", "<leader>wh", "<C-w>h", { desc = "Navigate to left pane" })
+vim.keymap.set("n", "<leader>wl", "<C-w>l", { desc = "Navigate to right pane" })
+vim.keymap.set("n", "<leader>wk", "<C-w>k", { desc = "Navigate to upper pane" })
+vim.keymap.set("n", "<leader>wj", "<C-w>j", { desc = "Navigate to lower pane" })
 
--- Buffer navigation (Alt+n/p)
-vim.keymap.set("n", "<A-n>", "<cmd>bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<A-p>", "<cmd>bprev<CR>", { desc = "Previous buffer" })
+-- Buffer navigation
+vim.keymap.set("n", "<leader>wn", "<cmd>bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<leader>wp", "<cmd>bprev<CR>", { desc = "Previous buffer" })
 
 -- Indent with reselect
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
