@@ -9,7 +9,16 @@ return {
     },
 
     config = function()
-        require('telescope').setup({})
+        local vimgrep_arguments = nil
+        if vim.fn.executable('rg') == 0 then
+            vimgrep_arguments = { 'grep', '-r', '-n', '-E', '--color=never', '-I' }
+        end
+
+        require('telescope').setup({
+            defaults = {
+                vimgrep_arguments = vimgrep_arguments,
+            },
+        })
         local builtin = require('telescope.builtin')
 
         local wk = require("which-key")
