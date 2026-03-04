@@ -64,8 +64,9 @@ return {
         -- Search everywhere (all builtins)
         vim.keymap.set('n', '<leader>as', builtin.builtin, { desc = "Search everywhere" })
 
-        -- List files in a Git repository
+        -- Git
         vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Find Git files" })
+        vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = "Git branches" })
 
         -- Search for the word under the cursor
         vim.keymap.set('n', '<leader>psw', function()
