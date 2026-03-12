@@ -50,9 +50,8 @@ print_info "Setting up terminal tools..."
 echo
 
 install_cask iterm2
-install_cask font-fira-code
+install_cask font-fira-code-nerd-font
 install_formula starship
-install_formula tmux
 
 STARSHIP_INIT='eval "$(starship init zsh)"'
 if ! grep -qF "$STARSHIP_INIT" ~/.zshrc 2>/dev/null; then
