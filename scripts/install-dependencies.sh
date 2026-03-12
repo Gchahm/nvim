@@ -156,6 +156,16 @@ install_pkg rg       ripgrep       ripgrep
 
 install_nvm
 
+NV_ALIAS='alias nv="nvim"'
+if ! grep -qF "$NV_ALIAS" ~/.zshrc 2>/dev/null; then
+    print_info "Adding 'nv' alias for nvim to ~/.zshrc..."
+    echo "" >> ~/.zshrc
+    echo "$NV_ALIAS" >> ~/.zshrc
+    print_success "'nv' alias added to ~/.zshrc."
+else
+    print_success "'nv' alias already in ~/.zshrc."
+fi
+
 echo
 print_success "All dependencies installed!"
 print_info "If nvm was just installed, restart your terminal and run: nvm install 20"
