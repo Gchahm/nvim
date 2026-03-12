@@ -46,20 +46,38 @@ return {
             vim.lsp.buf.format({ async = true })
         end, { desc = "Format file" })
 
-        -- Find files in the current project
-        vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "Find files" })
+        -- Go to file (find files)
+        vim.keymap.set('n', '<leader>po', builtin.find_files, { desc = "Go to file" })
 
         -- Find buffers
         vim.keymap.set('n', '<leader>pb', builtin.buffers, { desc = "Find buffers" })
 
-        -- Live grep (find in path)
-        vim.keymap.set('n', '<leader>pr', builtin.live_grep, { desc = "Find in path" })
+        -- Find in path (live grep)
+        vim.keymap.set('n', '<leader>pf', builtin.live_grep, { desc = "Find in path" })
+
+        -- Replace in path
+        vim.keymap.set('n', '<leader>pr', function()
+            local search = vim.fn.input("Search: ")
+            if search == "" then return end
+            local replace = vim.fn.input("Replace with: ")
+            if replace == "" then return end
+            vim.cmd("silent! vimgrep /" .. vim.fn.escape(search, "/\\") .. "/gj **/*")
+            vim.cmd("cfdo %s/" .. vim.fn.escape(search, "/\\") .. "/" .. vim.fn.escape(replace, "/\\") .. "/gc | update")
+        end, { desc = "Replace in path" })
 
         -- Go to action (commands)
         vim.keymap.set('n', '<leader>pa', builtin.commands, { desc = "Go to action" })
 
         -- Recent locations (jumplist)
         vim.keymap.set('n', '<leader>pl', builtin.jumplist, { desc = "Recent locations" })
+
+        -- New scratch file
+        vim.keymap.set('n', '<leader>ps', function()
+            vim.cmd("enew")
+            vim.bo.buftype = "nofile"
+            vim.bo.bufhidden = "wipe"
+            vim.bo.swapfile = false
+        end, { desc = "New scratch file" })
 
         -- Search everywhere (all builtins)
         vim.keymap.set('n', '<leader>as', builtin.builtin, { desc = "Search everywhere" })
@@ -72,19 +90,19 @@ return {
         vim.keymap.set('n', '<leader>gS', builtin.git_stash, { desc = "Git stash" })
 
         -- Search for the word under the cursor
-        vim.keymap.set('n', '<leader>psw', function()
+        vim.keymap.set('n', '<leader>fw', function()
             local word = vim.fn.expand("<cword>")
             builtin.grep_string({ search = word })
         end, { desc = "Search word under cursor" })
 
         -- Search for the WORD under the cursor
-        vim.keymap.set('n', '<leader>psW', function()
+        vim.keymap.set('n', '<leader>fW', function()
             local word = vim.fn.expand("<cWORD>")
             builtin.grep_string({ search = word })
         end, { desc = "Search WORD under cursor" })
 
         -- Prompt search
-        vim.keymap.set('n', '<leader>pss', function()
+        vim.keymap.set('n', '<leader>fs', function()
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
         end, { desc = "Search for user input" })
 
