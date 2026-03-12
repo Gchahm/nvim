@@ -50,8 +50,34 @@ print_info "Setting up terminal tools..."
 echo
 
 install_cask iterm2
-install_cask font-fira-code-nerd-font
+install_cask font-jetbrains-mono-nerd-font
 install_formula starship
+
+# Symlink iTerm2 preferences
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ITERM2_SOURCE_DIR="$(dirname "$SCRIPT_DIR")/iterm2"
+ITERM2_CONFIG_DIR="$HOME/.config/iterm2"
+
+if [ -L "$ITERM2_CONFIG_DIR" ]; then
+    if [ "$(readlink -f "$ITERM2_CONFIG_DIR")" = "$ITERM2_SOURCE_DIR" ]; then
+        print_success "iTerm2 config already symlinked to this repository."
+    else
+        print_info "Replacing existing iTerm2 symlink..."
+        rm "$ITERM2_CONFIG_DIR"
+        ln -s "$ITERM2_SOURCE_DIR" "$ITERM2_CONFIG_DIR"
+        print_success "iTerm2 symlink updated."
+    fi
+elif [ -d "$ITERM2_CONFIG_DIR" ]; then
+    ITERM2_BACKUP="$HOME/.config/iterm2.backup.$(date +%Y%m%d_%H%M%S)"
+    print_info "Backing up existing iTerm2 config to $ITERM2_BACKUP"
+    mv "$ITERM2_CONFIG_DIR" "$ITERM2_BACKUP"
+    ln -s "$ITERM2_SOURCE_DIR" "$ITERM2_CONFIG_DIR"
+    print_success "iTerm2 symlink created (old config backed up)."
+else
+    mkdir -p "$HOME/.config"
+    ln -s "$ITERM2_SOURCE_DIR" "$ITERM2_CONFIG_DIR"
+    print_success "Symlink created: $ITERM2_CONFIG_DIR -> $ITERM2_SOURCE_DIR"
+fi
 
 STARSHIP_INIT='eval "$(starship init zsh)"'
 if ! grep -qF "$STARSHIP_INIT" ~/.zshrc 2>/dev/null; then
