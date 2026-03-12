@@ -60,8 +60,8 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result and center" })
 
--- Paste without yanking
-vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yanking" })
+-- Paste without yanking (use P in visual mode for default behavior)
+vim.keymap.set("x", "<leader>P", [["_dP]], { desc = "Paste without yanking" })
 
 -- Yank to system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
