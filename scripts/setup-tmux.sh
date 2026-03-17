@@ -15,15 +15,36 @@ print_success() { echo -e "${GREEN}[SUCCESS]${NC} $1"; }
 print_warning() { echo -e "${YELLOW}[WARNING]${NC} $1"; }
 print_error()   { echo -e "${RED}[ERROR]${NC} $1"; }
 
-if [ "$(uname -s)" != "Darwin" ]; then
-    print_error "This script only supports macOS."
-    exit 1
-fi
+OS="$(uname -s)"
 
-if ! command -v brew &> /dev/null; then
-    print_error "Homebrew is not installed. Please run install-dependencies.sh first."
-    exit 1
-fi
+install_package() {
+    local pkg="$1"
+    if [ "$OS" = "Darwin" ]; then
+        if ! command -v brew &> /dev/null; then
+            print_error "Homebrew is not installed. Please run install-dependencies.sh first."
+            exit 1
+        fi
+        brew install "$pkg"
+    elif [ -f /etc/debian_version ]; then
+        sudo apt-get update && sudo apt-get install -y "$pkg"
+    elif [ -f /etc/redhat-release ]; then
+        sudo dnf install -y "$pkg"
+    elif [ -f /etc/arch-release ]; then
+        sudo pacman -S --noconfirm "$pkg"
+    else
+        print_error "Unsupported Linux distribution. Please install $pkg manually."
+        exit 1
+    fi
+}
+
+is_installed() {
+    local pkg="$1"
+    if [ "$OS" = "Darwin" ]; then
+        brew list "$pkg" &> /dev/null
+    else
+        command -v "$pkg" &> /dev/null
+    fi
+}
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_DIR="$(dirname "$SCRIPT_DIR")/tmux"
@@ -35,20 +56,20 @@ print_info "Setting up tmux..."
 echo
 
 # Install tmux
-if brew list tmux &> /dev/null; then
+if is_installed tmux; then
     print_success "tmux is already installed."
 else
     print_info "Installing tmux..."
-    brew install tmux
+    install_package tmux
     print_success "tmux installed."
 fi
 
 # Install fzf
-if brew list fzf &> /dev/null; then
+if is_installed fzf; then
     print_success "fzf is already installed."
 else
     print_info "Installing fzf..."
-    brew install fzf
+    install_package fzf
     print_success "fzf installed."
 fi
 
