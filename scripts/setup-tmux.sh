@@ -64,13 +64,19 @@ else
     print_success "tmux installed."
 fi
 
-# Install fzf
+# Install fzf (optional)
 if is_installed fzf; then
     print_success "fzf is already installed."
 else
-    print_info "Installing fzf..."
-    install_package fzf
-    print_success "fzf installed."
+    read -p "[?] Install fzf? (y/N) " -n 1 -r
+    echo
+    if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+        print_info "Installing fzf..."
+        install_package fzf
+        print_success "fzf installed."
+    else
+        print_info "Skipping fzf."
+    fi
 fi
 
 # Symlink tmux config directory
