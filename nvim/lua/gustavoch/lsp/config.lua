@@ -27,7 +27,7 @@ vim.lsp.config('lua_ls', {
     },
 })
 
-vim.lsp.enable({ 'ts_ls', 'eslint', 'lua_ls' })
+vim.lsp.enable({ 'ts_ls', 'eslint', 'lua_ls', 'elixir_ls' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(event)
