@@ -47,7 +47,14 @@ return {
         end, { desc = "Format file" })
 
         -- Go to file (find files)
-        vim.keymap.set('n', '<leader>po', builtin.find_files, { desc = "Go to file" })
+        local show_hidden = false
+        vim.keymap.set('n', '<leader>po', function()
+            builtin.find_files({ hidden = show_hidden, no_ignore = show_hidden })
+        end, { desc = "Go to file" })
+        vim.keymap.set('n', '<leader>p.', function()
+            show_hidden = not show_hidden
+            vim.notify("Find files: hidden " .. (show_hidden and "shown" or "hidden"))
+        end, { desc = "Toggle hidden files" })
 
         -- Find buffers
         vim.keymap.set('n', '<leader>pb', builtin.buffers, { desc = "Find buffers" })

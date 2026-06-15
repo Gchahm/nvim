@@ -83,12 +83,6 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { de
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Next quickfix item and center" })
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Previous quickfix item and center" })
 
--- Search and replace
-vim.keymap.set("n", "<leader>sw", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    { desc = "Search and replace word under cursor" })
-vim.keymap.set("n", "<leader>sW", [[:%s/\<<C-r><C-W>\>/<C-r><C-W>/gI<Left><Left><Left>]],
-    { desc = "Search and replace WORD under cursor" })
-
 -- Surround shortcuts
 vim.keymap.set("v", '<leader>"', 'c""<esc>P', { desc = "Enclose in double quotes" })
 vim.keymap.set("v", "<leader>'", "c''<esc>P", { desc = "Enclose in single quotes" })
@@ -116,11 +110,18 @@ vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Resize
 vim.keymap.set("n", "<leader>o", "o<Esc>k", { desc = "Add blank line below" })
 vim.keymap.set("n", "<leader>O", "O<Esc>j", { desc = "Add blank line above" })
 
--- Select all
-vim.keymap.set("n", "<leader>sa", "ggVG", { desc = "Select all" })
-
--- Open Lazy plugin manager
-vim.keymap.set("n", "<leader>l", "<cmd>Lazy<CR>", { desc = "Open Lazy" })
+-- Settings
+vim.keymap.set("n", "<leader>sl", "<cmd>Lazy<CR>", { desc = "Settings: Lazy (plugins)" })
+vim.keymap.set("n", "<leader>sm", "<cmd>Mason<CR>", { desc = "Settings: Mason (LSP/tools)" })
+vim.keymap.set("n", "<leader>sh", "<cmd>checkhealth<CR>", { desc = "Settings: checkhealth" })
+vim.keymap.set("n", "<leader>si", "<cmd>LspInfo<CR>", { desc = "Settings: LSP info" })
+vim.keymap.set("n", "<leader>se", function()
+    vim.cmd.edit(vim.fn.stdpath("config") .. "/init.lua")
+end, { desc = "Settings: edit init.lua" })
+vim.keymap.set("n", "<leader>sc", function()
+    vim.cmd.tcd(vim.fn.stdpath("config"))
+    vim.cmd.edit(vim.fn.stdpath("config"))
+end, { desc = "Settings: open config dir" })
 
 -- Previous buffer
 vim.keymap.set("n", "gp", "<cmd>b#<CR>", { desc = "Previous buffer" })

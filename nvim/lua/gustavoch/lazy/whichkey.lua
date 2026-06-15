@@ -2,6 +2,14 @@ return {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
+        spec = {
+            { "<leader>s", group = "settings" },
+            { "<leader>w", group = "window/buffer" },
+            { "<leader>e", group = "diagnostics" },
+            { "<leader>z", group = "folds" },
+            { "<leader>m", group = "markdown" },
+            { "<leader>f", group = "find/file" },
+        },
     },
     keys = {
         {
