@@ -9,9 +9,22 @@ return {
     },
 
     config = function()
-        local vimgrep_arguments = nil
+        local vimgrep_arguments
         if vim.fn.executable('rg') == 0 then
             vimgrep_arguments = { 'grep', '-r', '-n', '-E', '--color=never', '-I' }
+        else
+            -- ripgrep defaults, plus --follow so symlinked dirs (e.g. the
+            -- symlinked repos under an aggregator repo) get searched.
+            vimgrep_arguments = {
+                'rg',
+                '--color=never',
+                '--no-heading',
+                '--with-filename',
+                '--line-number',
+                '--column',
+                '--smart-case',
+                '--follow',
+            }
         end
 
         require('telescope').setup({
