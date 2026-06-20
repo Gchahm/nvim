@@ -37,3 +37,18 @@ vim.o.foldcolumn = '0' -- '0' is not bad
 vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
+
+-- Fall back to OSC 52 when no native clipboard tool is available (e.g. inside
+-- a docker container). Requires iTerm2 "Applications in terminal may access
+-- clipboard" to be enabled. tmux must have `set-clipboard on` to pass through.
+if vim.fn.executable('pbcopy') == 0
+    and vim.fn.executable('xclip') == 0
+    and vim.fn.executable('xsel') == 0
+    and vim.fn.executable('wl-copy') == 0 then
+    local osc52 = require('vim.ui.clipboard.osc52')
+    vim.g.clipboard = {
+        name = 'OSC 52',
+        copy = { ['+'] = osc52.copy('+'), ['*'] = osc52.copy('*') },
+        paste = { ['+'] = osc52.paste('+'), ['*'] = osc52.paste('*') },
+    }
+end
