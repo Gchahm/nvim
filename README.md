@@ -12,7 +12,7 @@ cd ~/code/dotfiles
 
 `install.sh` is idempotent. Existing files are moved to `<target>.backup.<timestamp>`, and each action is printed (`link`, `ok`, `backup`, `skip`). It needs only `bash`, `ln`, `mkdir`, `mv` (plus `git` to fetch the tmux plugin manager).
 
-Optionally install the tools these configs expect (neovim 0.11+, ripgrep, tmux, fzf, fnm, starship) with `./scripts/packages.sh` (Homebrew on macOS, apt on Linux).
+Optionally install the tools these configs expect (neovim 0.11+, ripgrep, tmux, fzf, fnm, starship, zsh-autosuggestions) with `./scripts/packages.sh` (Homebrew on macOS, apt on Linux).
 
 ## Layout
 
