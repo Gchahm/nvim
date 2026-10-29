@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Installs the tools these dotfiles expect (optional; install.sh does not need it).
+# Installs the tools these dotfiles expect (run by bootstrap.sh; link.sh does not need it).
 #   macOS: brew bundle, driven by ../Brewfile
 #   Linux: packages-linux.sh (apt list + upstream installers)
 set -e
