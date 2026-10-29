@@ -30,6 +30,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias ..='cd ..'
 alias ...='cd ../..'
+alias v='nvim'
 
 # Prompt customization (simple)
 autoload -Uz vcs_info
@@ -42,5 +43,3 @@ PROMPT='%F{cyan}%n@%m%f:%F{yellow}%~%f %F{green}${vcs_info_msg_0_}%f$ '
 # Path additions (add your custom paths here)
 # export PATH="$HOME/bin:$PATH"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
-
-alias v="nvim"
