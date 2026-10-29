@@ -1,0 +1,7 @@
+curl
+git
+make
+ripgrep
+tmux
+fzf
+zsh-autosuggestions

@@ -1,0 +1,7 @@
+brew "neovim"
+brew "ripgrep"
+brew "tmux"
+brew "fzf"
+brew "fnm"
+brew "starship"
+brew "zsh-autosuggestions"
