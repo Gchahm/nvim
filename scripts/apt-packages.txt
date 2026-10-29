@@ -4,4 +4,5 @@ make
 ripgrep
 tmux
 fzf
+zsh
 zsh-autosuggestions
