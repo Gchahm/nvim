@@ -163,7 +163,6 @@ install_pkg make     make          make
 install_pkg rg       ripgrep       ripgrep
 install_pkg tmux     tmux          tmux
 install_pkg fzf      fzf           fzf
-install_pkg starship starship      starship
 
 install_fnm
 

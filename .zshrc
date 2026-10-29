@@ -43,31 +43,4 @@ PROMPT='%F{cyan}%n@%m%f:%F{yellow}%~%f %F{green}${vcs_info_msg_0_}%f$ '
 # export PATH="$HOME/bin:$PATH"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
-# aws start
-
-export AWS_PROFILE=chahm
-
-
-acurl () {
-    REGION=$1
-    SERVICE=$2
-    shift; shift;
-
-    # Get credentials from current AWS session
-    eval $(aws configure export-credentials --format env)
-
-    # Build curl command with session token only if it exists
-    if [ -n "$AWS_SESSION_TOKEN" ]; then
-        curl --aws-sigv4 "aws:amz:$REGION:$SERVICE" --user "$AWS_ACCESS_KEY_ID:$AWS_SECRET_ACCESS_KEY" -H "x-amz-security-token: $AWS_SESSION_TOKEN" "$@"
-    else
-        curl --aws-sigv4 "aws:amz:$REGION:$SERVICE" --user "$AWS_ACCESS_KEY_ID:$AWS_SECRET_ACCESS_KEY" "$@"
-    fi
-}
-
-
-#aws end
-
-command -v starship >/dev/null && eval "$(starship init zsh)"
-
 alias v="nvim"
-export PATH="$HOME/go/bin:$PATH"
