@@ -19,8 +19,12 @@ Optionally install the tools these configs expect (neovim 0.11+, ripgrep, tmux, 
 | Path in repo | Linked to |
 |---|---|
 | `.gitconfig` | `~/.gitconfig` |
+| `.zshrc` | `~/.zshrc` |
+| `.zshrc.mac` | `~/.zshrc.mac` (sourced only when `$OSTYPE` is darwin) |
 | `nvim/` | `~/.config/nvim` |
 | `tmux/` | `~/.config/tmux` |
+
+Secrets and machine-specific settings go in `~/.zshrc.local`, which is sourced by `.zshrc` if present but never tracked.
 
 To add a config, drop it in the repo and add a line to `LINKS` in `install.sh`.
 
