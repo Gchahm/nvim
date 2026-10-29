@@ -1,75 +1,38 @@
-# Neovim Configuration
+# dotfiles
 
-A complete Neovim configuration with Lazy.nvim plugin management, LSP, treesitter, and more.
+Personal configuration for neovim and tmux, symlinked into place by a single script.
 
-## Quick Start
+## Install
 
 ```bash
-git clone <your-repo-url> ~/nvim-config
-cd ~/nvim-config
-
-# Install dependencies (Neovim 0.11+, ripgrep, lua, etc.)
-./scripts/install-dependencies.sh
-
-# Symlink the config to ~/.config/nvim
-./scripts/add-symlink.sh
-
-# Start Neovim and let Lazy.nvim install plugins
-nvim
+git clone <repo-url> ~/code/dotfiles
+cd ~/code/dotfiles
+./install.sh
 ```
 
-## Scripts
+`install.sh` is idempotent. Existing files are moved to `<target>.backup.<timestamp>`, and each action is printed (`link`, `ok`, `backup`, `skip`). It needs only `bash`, `ln`, `mkdir`, `mv` (plus `git` to fetch the tmux plugin manager).
 
-All scripts live in `scripts/` and support both macOS (Homebrew) and Linux (apt).
+Optionally install the tools these configs expect (neovim 0.11+, ripgrep, tmux, fzf, starship, nvm) with `./scripts/packages.sh` (Homebrew on macOS, apt on Linux).
 
-| Script | Purpose |
+## Layout
+
+| Path in repo | Linked to |
 |---|---|
-| `install-dependencies.sh` | Installs Neovim 0.11+ and all build dependencies |
-| `add-symlink.sh` | Links `~/.config/nvim` to this repo (backs up existing config) |
-| `remove-symlink.sh` | Removes the symlink and cleans up bashrc integration |
-| `install-ohmyposh.sh` | Optional: installs oh-my-posh with the honukai theme |
+| `.tmux.conf` | `~/.tmux.conf` |
+| `nvim/` | `~/.config/nvim` |
+| `tmux/` | `~/.config/tmux` |
 
-## Requirements
+To add a config, drop it in the repo and add a line to `LINKS` in `install.sh`.
 
-- Neovim >= 0.11 (installed by `install-dependencies.sh`)
-- Git
-- A terminal that supports true colors
-
-## Uninstallation
+## Uninstall
 
 ```bash
-./scripts/remove-symlink.sh
+./uninstall.sh
 ```
 
-This will remove the symlink, clean up bashrc integration, and optionally restore a backup.
+Removes the symlinks pointing into this repo and restores the newest backup, if any.
 
-## Troubleshooting
+## Notes
 
-### Plugin Installation Issues
-```bash
-nvim --headless "+Lazy! sync" +qa
-```
-
-### Backup Recovery
-Old configurations are backed up to `~/.config/nvim.backup.TIMESTAMP`. Restore them with `remove-symlink.sh` or manually.
-
-## Project Structure
-
-```
-.
-├── scripts/
-│   ├── install-dependencies.sh   # Install Neovim + dependencies
-│   ├── add-symlink.sh            # Symlink config into place
-│   ├── remove-symlink.sh         # Remove symlink and clean up
-│   └── install-ohmyposh.sh       # Optional oh-my-posh setup
-├── nvim/                          # Neovim configuration
-│   ├── init.lua                   # Entry point
-│   ├── lazy-lock.json             # Plugin version lock
-│   ├── .bashrc                    # Shell aliases and env vars
-│   ├── .terminal/                 # Terminal themes
-│   ├── lua/gustavoch/             # Configuration modules
-│   └── after/ftplugin/            # Filetype-specific settings
-└── README.md
-```
-
-The `nvim/` directory is symlinked to `~/.config/nvim/`, so changes in the repo are immediately live.
+- After first install, open tmux and press `prefix + I` to install plugins; open `nvim` to let lazy.nvim sync.
+- `nvim --headless "+Lazy! sync" +qa` re-syncs plugins from the command line.
