@@ -12,15 +12,19 @@ cd ~/code/dotfiles
 
 `install.sh` is idempotent. Existing files are moved to `<target>.backup.<timestamp>`, and each action is printed (`link`, `ok`, `backup`, `skip`). It needs only `bash`, `ln`, `mkdir`, `mv` (plus `git` to fetch the tmux plugin manager).
 
-Optionally install the tools these configs expect (neovim 0.11+, ripgrep, tmux, fzf, starship, nvm) with `./scripts/packages.sh` (Homebrew on macOS, apt on Linux).
+Optionally install the tools these configs expect (neovim 0.11+, ripgrep, tmux, fzf, fnm) with `./scripts/packages.sh` (Homebrew on macOS, apt on Linux).
 
 ## Layout
 
 | Path in repo | Linked to |
 |---|---|
 | `.gitconfig` | `~/.gitconfig` |
+| `.zshrc` | `~/.zshrc` |
+| `.zshrc.mac` | `~/.zshrc.mac` (sourced only when `$OSTYPE` is darwin) |
 | `nvim/` | `~/.config/nvim` |
 | `tmux/` | `~/.config/tmux` |
+
+Secrets and machine-specific settings go in `~/.zshrc.local`, which is sourced by `.zshrc` if present but never tracked.
 
 To add a config, drop it in the repo and add a line to `LINKS` in `install.sh`.
 
