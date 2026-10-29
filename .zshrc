@@ -21,7 +21,8 @@ compinit
 # Enable case-insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-# fnm (Fast Node Manager)
+# fnm (Fast Node Manager); the Linux install script puts the binary in ~/.local/share/fnm
+[ -d "$HOME/.local/share/fnm" ] && export PATH="$HOME/.local/share/fnm:$PATH"
 command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell zsh)"
 
 # Aliases
