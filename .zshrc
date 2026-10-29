@@ -37,5 +37,13 @@ alias v='nvim'
 export PATH="$HOME/.local/bin:$PATH"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
+# Autosuggestions (grey inline suggestions from history; right arrow accepts)
+for f in /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+         /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+         /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh; do
+  [ -f "$f" ] && { source "$f"; break; }
+done
+unset f
+
 # Prompt (keep last so PATH is final)
 command -v starship >/dev/null && eval "$(starship init zsh)"

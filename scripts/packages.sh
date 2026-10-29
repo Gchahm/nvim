@@ -171,6 +171,31 @@ install_starship() {
     print_success "starship installed. Icons need a Nerd Font in your terminal."
 }
 
+# --- zsh-autosuggestions (a zsh plugin, not a command) ---
+
+install_autosuggestions() {
+    case "$OS" in
+        Darwin)
+            ensure_brew
+            if brew list zsh-autosuggestions &> /dev/null; then
+                print_success "zsh-autosuggestions is already installed."
+            else
+                print_info "Installing zsh-autosuggestions..."
+                brew install zsh-autosuggestions
+            fi
+            ;;
+        Linux)
+            if dpkg -s zsh-autosuggestions &> /dev/null; then
+                print_success "zsh-autosuggestions is already installed."
+            else
+                print_info "Installing zsh-autosuggestions..."
+                ensure_apt_updated
+                sudo apt install -y zsh-autosuggestions
+            fi
+            ;;
+    esac
+}
+
 # --- Main ---
 
 echo
@@ -187,6 +212,7 @@ install_pkg fzf      fzf           fzf
 
 install_fnm
 install_starship
+install_autosuggestions
 
 echo
 print_success "All dependencies installed!"
