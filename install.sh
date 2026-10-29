@@ -8,6 +8,7 @@ STAMP="$(date +%Y%m%d_%H%M%S)"
 
 # source (relative to repo)   target
 LINKS=(
+  ".gitconfig   $HOME/.gitconfig"
   "nvim         $HOME/.config/nvim"
   "tmux         $HOME/.config/tmux"
 )
