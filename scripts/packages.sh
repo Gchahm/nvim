@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Installs all dependencies needed for the Neovim configuration.
+# Installs the tools these dotfiles expect (optional; install.sh does not need it).
 # Supports macOS (Homebrew) and Linux (apt).
 
 set -e
@@ -145,7 +145,7 @@ install_nvm() {
 # --- Main ---
 
 echo
-print_info "Installing Neovim dependencies for $(uname -s)..."
+print_info "Installing packages for $(uname -s)..."
 echo
 
 check_neovim
@@ -153,18 +153,11 @@ check_neovim
 #         cmd       brew pkg      apt pkg
 install_pkg make     make          make
 install_pkg rg       ripgrep       ripgrep
+install_pkg tmux     tmux          tmux
+install_pkg fzf      fzf           fzf
+install_pkg starship starship      starship
 
 install_nvm
-
-NV_ALIAS='alias nv="nvim"'
-if ! grep -qF "$NV_ALIAS" ~/.zshrc 2>/dev/null; then
-    print_info "Adding 'nv' alias for nvim to ~/.zshrc..."
-    echo "" >> ~/.zshrc
-    echo "$NV_ALIAS" >> ~/.zshrc
-    print_success "'nv' alias added to ~/.zshrc."
-else
-    print_success "'nv' alias already in ~/.zshrc."
-fi
 
 echo
 print_success "All dependencies installed!"
