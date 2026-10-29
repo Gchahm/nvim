@@ -3,7 +3,7 @@
 set -eu
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TARGETS=("$HOME/.config/nvim" "$HOME/.config/tmux")
+TARGETS=("$HOME/.gitconfig" "$HOME/.config/nvim" "$HOME/.config/tmux")
 
 for dst in "${TARGETS[@]}"; do
   if [ -L "$dst" ] && [[ "$(readlink "$dst")" == "$REPO"/* ]]; then
