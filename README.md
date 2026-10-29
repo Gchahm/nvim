@@ -18,7 +18,6 @@ Optionally install the tools these configs expect (neovim 0.11+, ripgrep, tmux, 
 
 | Path in repo | Linked to |
 |---|---|
-| `.tmux.conf` | `~/.tmux.conf` |
 | `nvim/` | `~/.config/nvim` |
 | `tmux/` | `~/.config/tmux` |
 
