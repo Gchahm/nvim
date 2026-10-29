@@ -32,14 +32,10 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias v='nvim'
 
-# Prompt customization (simple)
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-zstyle ':vcs_info:git:*' formats '%b'
-PROMPT='%F{cyan}%n@%m%f:%F{yellow}%~%f %F{green}${vcs_info_msg_0_}%f$ '
-
 # Path additions (add your custom paths here)
 # export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
+# Prompt (keep last so PATH is final)
+command -v starship >/dev/null && eval "$(starship init zsh)"
