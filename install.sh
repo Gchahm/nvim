@@ -3,8 +3,19 @@
 # Existing real files/dirs are moved to <target>.backup.<timestamp>.
 set -eu
 
+# Usage: ./install.sh [--packages]
+#   --packages  also run scripts/packages.sh (automatic in GitHub Codespaces)
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 STAMP="$(date +%Y%m%d_%H%M%S)"
+
+WITH_PACKAGES=false
+[ "${CODESPACES:-}" = "true" ] && WITH_PACKAGES=true
+for arg in "$@"; do
+  case "$arg" in
+    --packages) WITH_PACKAGES=true ;;
+    *) echo "unknown option: $arg" >&2; exit 1 ;;
+  esac
+done
 
 # source (relative to repo)   target
 LINKS=(
@@ -45,6 +56,11 @@ if [ ! -d "$TPM" ]; then
   else
     echo "skip    TPM (git not found)"
   fi
+fi
+
+if $WITH_PACKAGES; then
+  echo "run     scripts/packages.sh"
+  bash "$REPO/scripts/packages.sh"
 fi
 
 echo "Done. In tmux, press prefix + I to install plugins."
