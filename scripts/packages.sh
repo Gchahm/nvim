@@ -150,6 +150,27 @@ install_fnm() {
     print_success "fnm installed. Restart your terminal, then run: fnm install --lts"
 }
 
+# --- starship prompt ---
+
+install_starship() {
+    if command -v starship &> /dev/null; then
+        print_success "starship is already installed."
+        return
+    fi
+    print_info "Installing starship..."
+    case "$OS" in
+        Darwin)
+            ensure_brew
+            brew install starship
+            ;;
+        Linux)
+            mkdir -p "$HOME/.local/bin"
+            curl -fsSL https://starship.rs/install.sh | sh -s -- --yes --bin-dir "$HOME/.local/bin"
+            ;;
+    esac
+    print_success "starship installed. Icons need a Nerd Font in your terminal."
+}
+
 # --- Main ---
 
 echo
@@ -165,6 +186,7 @@ install_pkg tmux     tmux          tmux
 install_pkg fzf      fzf           fzf
 
 install_fnm
+install_starship
 
 echo
 print_success "All dependencies installed!"
