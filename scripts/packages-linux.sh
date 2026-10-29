@@ -86,3 +86,7 @@ install_apt_packages
 check_neovim
 install_fnm
 install_starship
+
+if [ "$(basename "${SHELL:-}")" != "zsh" ]; then
+    print_warning "Your login shell is not zsh. To switch: chsh -s \"$(command -v zsh)\" (then log out and back in)."
+fi
