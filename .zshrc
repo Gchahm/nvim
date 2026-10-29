@@ -21,10 +21,8 @@ compinit
 # Enable case-insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-# NVM (Node Version Manager) configuration
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# fnm (Fast Node Manager)
+command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell zsh)"
 
 # Aliases
 alias ll='ls -alF'

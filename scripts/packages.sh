@@ -130,16 +130,24 @@ check_neovim() {
     install_neovim
 }
 
-# --- nvm / Node.js ---
+# --- fnm / Node.js ---
 
-install_nvm() {
-    if command -v nvm &> /dev/null || [ -d "$HOME/.nvm" ]; then
-        print_success "nvm is already installed."
+install_fnm() {
+    if command -v fnm &> /dev/null; then
+        print_success "fnm is already installed."
         return
     fi
-    print_info "Installing nvm..."
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-    print_success "nvm installed. Restart your terminal, then run: nvm install 20"
+    print_info "Installing fnm..."
+    case "$OS" in
+        Darwin)
+            ensure_brew
+            brew install fnm
+            ;;
+        Linux)
+            curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+            ;;
+    esac
+    print_success "fnm installed. Restart your terminal, then run: fnm install --lts"
 }
 
 # --- Main ---
@@ -157,8 +165,8 @@ install_pkg tmux     tmux          tmux
 install_pkg fzf      fzf           fzf
 install_pkg starship starship      starship
 
-install_nvm
+install_fnm
 
 echo
 print_success "All dependencies installed!"
-print_info "If nvm was just installed, restart your terminal and run: nvm install 20"
+print_info "If fnm was just installed, restart your terminal and run: fnm install --lts"
